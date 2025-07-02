@@ -33,7 +33,7 @@ function CaptainRiding() {
       <div className="fixed p-4 top-0 flex items-center justify-between w-full">
         <img
           className="w-16"
-          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
+          src="https://thumbs.dreamstime.com/b/vroom-pop-art-comic-speech-bubbles-book-sound-effects-vector-illustration-258767749.jpg"
           alt=""
         />
         {/* create the captain logout route and add here  */}

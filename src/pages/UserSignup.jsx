@@ -59,7 +59,7 @@ function UserSignup() {
         <div>
           <img
             className="w-16 mb-10"
-            src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
+            src="https://thumbs.dreamstime.com/b/vroom-pop-art-comic-speech-bubbles-book-sound-effects-vector-illustration-258767749.jpg"
             alt=""
           />
           <form

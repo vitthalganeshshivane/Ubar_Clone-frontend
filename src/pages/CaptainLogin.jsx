@@ -47,8 +47,8 @@ function CaptainLogin() {
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
         <img
-          className="w-20 mb-3"
-          src="https://www.svgrepo.com/show/505031/uber-driver.svg"
+          className="w-16 mb-3"
+          src="https://thumbs.dreamstime.com/b/vroom-pop-art-comic-speech-bubbles-book-sound-effects-vector-illustration-258767749.jpg"
           alt=""
         />
         <form
