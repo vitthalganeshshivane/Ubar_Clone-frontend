@@ -57,7 +57,16 @@ function LiveTracking() {
   return (
     <>
       {/* <LoadScript googleMapsApiKey={import.meta.env.GOOGLE_MAPS_API}> */}
-      <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API}>
+      <LoadScript
+        googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API}
+        loadingElement={
+          <div className="flex items-center justify-center h-full">
+            <p className="text-lg font-semibold animate-pulse text-gray-600">
+              Loading Map...
+            </p>
+          </div>
+        }
+      >
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={currentPosition}

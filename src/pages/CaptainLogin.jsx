@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CaptainDataContext } from "../context/CaptainContex";
+import { toast } from "react-hot-toast";
 
 function CaptainLogin() {
   const navigate = useNavigate();
@@ -19,16 +20,23 @@ function CaptainLogin() {
       password: password,
     };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/api/captains/login`,
-      captain
-    );
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/captains/login`,
+        captain
+      );
 
-    if (response.status === 200) {
-      const data = response.data;
-      setCaptain(data);
-      localStorage.setItem("token", data.token);
-      navigate("/captain-home");
+      if (response.status === 200) {
+        const data = response.data;
+        setCaptain(data);
+        localStorage.setItem("token", data.token);
+        toast.success("Login successful!");
+        navigate("/captain-home");
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
     }
 
     setEmail("");

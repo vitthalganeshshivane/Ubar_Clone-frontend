@@ -27,8 +27,6 @@ function UserLogin() {
         `${import.meta.env.VITE_BASE_URL}/api/users/login`,
         userData
       );
-
-      // toast.promise shows loading, success, and error states
       const response = await toast.promise(
         loginPromise,
         {
@@ -37,7 +35,6 @@ function UserLogin() {
           error: "Invalid credentials. Please try again.",
         },
         {
-          // Optional styling
           success: {
             duration: 3000,
           },

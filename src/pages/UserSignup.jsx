@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserDataContext } from "../context/UserContext";
+import { toast } from "react-hot-toast";
 
 function UserSignup() {
   const [email, setEmail] = useState("");
@@ -26,16 +27,24 @@ function UserSignup() {
       password: password,
     };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/api/users/register`,
-      newUser
-    );
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/users/register`,
+        newUser
+      );
 
-    if (response.status === 201) {
-      const data = response.data;
-      setUser(data.user);
-      localStorage.setItem("token", data.token);
-      navigate("/home");
+      if (response.status === 201) {
+        const data = response.data;
+        setUser(data.user);
+        localStorage.setItem("token", data.token);
+        toast.success("Registered successful!");
+        navigate("/home");
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "User Registration failed. Please try again."
+      );
     }
 
     setEmail("");

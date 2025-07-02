@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CaptainDataContext } from "../context/CaptainContex";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
 function CaptainSignup() {
@@ -36,16 +37,24 @@ function CaptainSignup() {
       },
     };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/api/captains/register`,
-      captainData
-    );
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/captains/register`,
+        captainData
+      );
 
-    if (response.status === 201) {
-      const data = response.data;
-      setCaptain(data.captain);
-      localStorage.setItem("token", data.token);
-      navigate("/captain-home");
+      if (response.status === 201) {
+        const data = response.data;
+        setCaptain(data.captain);
+        localStorage.setItem("token", data.token);
+        toast.success("Registered successful!");
+        navigate("/captain-home");
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "Captain Registration failed. Please try again."
+      );
     }
 
     setEmail("");
