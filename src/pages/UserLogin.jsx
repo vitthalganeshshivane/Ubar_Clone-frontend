@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { UserDataContext } from "../context/UserContext";
 
 function UserLogin() {
@@ -20,20 +21,43 @@ function UserLogin() {
       password: password,
     };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/api/users/login`,
-      userData
-    );
+    try {
+      // Show a loading toast while waiting
+      const loginPromise = axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/users/login`,
+        userData
+      );
 
-    if (response.status === 200) {
-      const data = response.data;
-      setUser(data.user);
-      localStorage.setItem("token", data.token);
-      navigate("/home");
+      // toast.promise shows loading, success, and error states
+      const response = await toast.promise(
+        loginPromise,
+        {
+          loading: "Logging in...",
+          success: "Login successful!",
+          error: "Invalid credentials. Please try again.",
+        },
+        {
+          // Optional styling
+          success: {
+            duration: 3000,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        setUser(data.user);
+        localStorage.setItem("token", data.token);
+
+        navigate("/home");
+      }
+
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      // You don't need toast.error here because toast.promise handles error
+      console.error(error);
     }
-
-    setEmail("");
-    setPassword("");
   };
 
   return (
